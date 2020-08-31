@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- {{ axios_data }} -->
-    <!-- {{ qiita }} -->
     <v-btn
       color="info"
       @click="addItem()"
@@ -32,6 +30,16 @@
         </template>
       </v-data-table>
     </v-card>
+
+    <v-btn
+      color="info"
+      @click="save()"
+      class="mt-5"
+    >
+      saveメソッド
+    </v-btn>
+
+
   </div>
 
 </template>
@@ -60,10 +68,8 @@ export default {
     //   };
     // },
 
-
   data() {
     return {
-
       // v-bindによるリンクのため、dataにヘッダーを保持
       headers: [
         {
@@ -85,45 +91,46 @@ export default {
       ],
     }
   },
-  mounted() {
 
-    // methodsに定義したmapActionsをインスタンス生成時に処理する
+  mounted() {
     this.getData()
   },
-
   computed: {
-    // dokodakke_itemsをステートから取得
     dokodakke_items() {
       return this.$store.state.dokodakke_items
-    }
+    },
   },
-
   methods: {
-
     // Vuexに記述されたactionsをmethods定義
     ...mapActions({
       getData: 'getData'
     }),
-
     // 新規追加ボタンをクリックしたとき（mutations「pushIndex」を呼び出す）
     addItem() {
       const index = -1
       this.$store.commit('pushIndex', index)
       this.$router.push('/edit')
     },
-
     // 編集アイコンをクリックしたとき
     editItem(item){
       const index = this.dokodakke_items.indexOf(item)
-      this.$store.commit('pushIndex', index)
+
+      // 直接mutationsをcommitではなく、actionsを経由するのが正しい方法
+      this.$store.dispatch('pushIndex', index)
       this.$router.push('/edit')
     },
-
-    // 削除アイコンをクリックしたとき
-    deleteItem: function(item) {
-      const index = this.dokodakke_items.indexOf(item)
-      this.$store.commit('delete', index)
-    }
+    // 削除アイコンでデータを削除
+    deleteItem(item) {
+      const id = item.id
+      const ret = confirm("削除して宜しいですか？")
+      if (ret == true) {
+        this.$store.dispatch('deleteItem', {id: id})
+      }
+    },
+    save(editedItem) {
+      this.$store.commit('save', this.editedItem)
+      this.$router.push('/')
+    },
   }
 }
 </script>

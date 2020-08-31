@@ -37,6 +37,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    { src: '~plugins/localStorage', ssr: false },
   ],
   /*
   ** Auto import components

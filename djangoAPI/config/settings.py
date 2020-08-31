@@ -141,12 +141,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # 追加
-REST_FRAMEWORK = {
-  'DEFAULT_AUTHENTICATION_CLASSES': [
-    # 'rest_framework_simplejwt.authentication.JWTAuthentication',
-    'rest_framework.authentication.SessionAuthentication',
-  ]
-}
+# REST_FRAMEWORK = {
+#   'DEFAULT_AUTHENTICATION_CLASSES': [
+#     # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     'rest_framework.authentication.SessionAuthentication',
+#   ]
+# }
 
 # 追加
 # SIMPLE_JWT = {
