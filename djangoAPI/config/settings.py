@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # 追加：ライブラリ
     'rest_framework',
     # 'djoser',
+    'djoser',
     'corsheaders',
 
     # 追加：アプリケーション
@@ -141,18 +142,28 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # 追加
+REST_FRAMEWORK = {
+  'DEFAULT_AUTHENTICATION_CLASSES': [
+    'rest_framework_simplejwt.authentication.JWTAuthentication',
+    # 'rest_framework.authentication.SessionAuthentication',
+  ]
+}
 # REST_FRAMEWORK = {
-#   'DEFAULT_AUTHENTICATION_CLASSES': [
-#     # 'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     'rest_framework.authentication.SessionAuthentication',
-#   ]
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+#     ),
+#     'NON_FIELD_ERRORS_KEY': 'detail',
+#     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 # }
 
 # 追加
-# SIMPLE_JWT = {
-#   'AUTH_HEADER_TYPES': ('JWT',),
-#   'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
-# }
+SIMPLE_JWT = {
+  'AUTH_HEADER_TYPES': ('JWT',),
+  'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+}
 
 # CORS
 # CORS_ORIGIN_ALLOW_ALL = True
